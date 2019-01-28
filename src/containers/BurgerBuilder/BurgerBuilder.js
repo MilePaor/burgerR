@@ -59,7 +59,7 @@ class BurgerBuilder extends Component {
     updatedIngredients[type] = updatedCount;
     const priceDeduction = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice + priceDeduction;
+    const newPrice = oldPrice - priceDeduction;
 
     this.setState({
       totalPrice: newPrice,
@@ -69,9 +69,7 @@ class BurgerBuilder extends Component {
 
   render() {
     // check for 0 in ingredients
-    const disabledInfo = {
-      ...this.state.ingredients
-    };
+    const disabledInfo = { ...this.state.ingredients };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
@@ -82,6 +80,7 @@ class BurgerBuilder extends Component {
           addIngredientHandler={this.addIngredientHandler}
           removeIngredientHandler={this.removeIngredientHandler}
           disabled={disabledInfo}
+          totalPrice={this.state.totalPrice}
         />
       </React.Fragment>
     );

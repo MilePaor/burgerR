@@ -25,9 +25,11 @@ const controls = [
 
 const BuildControls = props => (
   <div className={styles.BuildControls}>
+    <p>Current prce: ${props.totalPrice.toFixed(2)}</p>
     {controls.map((c, a) => {
       console.log("c", c, "a", a);
       return (
+        
         <BuildControl
           key={c.label}
           label={c.label}
@@ -35,6 +37,7 @@ const BuildControls = props => (
           removeIngredientHandler={e =>
             props.removeIngredientHandler(c.type, e)
           }
+          disabled={props.disabled[c.type]}
         />
       );
     })}
