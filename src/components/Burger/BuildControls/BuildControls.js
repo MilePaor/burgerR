@@ -23,22 +23,38 @@ const controls = [
   }
 ];
 
-const BuildControls = props => (
-  <div className={styles.BuildControls}>
-    {controls.map((c, a) => {
-      console.log("c", c, "a", a);
-      return (
+const BuildControls = props => {
+  let {
+    totalPrice,
+    disabledInfo,
+    purchaseable,
+    ordered,
+    removeIngredientHandler,
+    addIngredientHandler
+  } = props;
+
+  return (
+    <div className={styles.BuildControls}>
+      <p>Current price: {totalPrice.toFixed(2)}</p>
+
+      {controls.map((c, a) => (
         <BuildControl
           key={c.label}
           label={c.label}
-          addIngredientHandler={e => props.addIngredientHandler(c.type, e)}
-          removeIngredientHandler={e =>
-            props.removeIngredientHandler(c.type, e)
-          }
+          disabled={disabledInfo[c.type]}
+          addIngredientHandler={e => addIngredientHandler(c.type, e)}
+          removeIngredientHandler={e => removeIngredientHandler(c.type, e)}
         />
-      );
-    })}
-  </div>
-);
+      ))}
+      <button
+        className={styles.OrderButton}
+        disabled={!purchaseable}
+        onClick={ordered}
+      >
+        ORDER NOW
+      </button>
+    </div>
+  );
+};
 
 export default BuildControls;
